@@ -14,7 +14,7 @@ function whiteListIp(): array
 
 function validIp(string $ip)
 {
-    if (in_array($ip, whiteListIp())) {
+    if (!in_array($ip, whiteListIp())) {
         forbidden();
     }
 }
