@@ -1,5 +1,7 @@
 <?php
 
+validIp($_SERVER["REMOTE_ADDR"]);
+
 function whiteListIp(): array
 {
     return $list = array(
