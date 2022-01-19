@@ -7,6 +7,7 @@ class Upload
         $this->_max_size = 500;
         $this->_allow_img = array("jpg", "jpeg", "png");
         $this->_path_images = BASEPATH."/images/";
+        $this->log = new Log();
         
     }
 
@@ -51,6 +52,7 @@ class Upload
         if (!isset($_FILES[$value]["tmp_name"])) {
             http_response_code(400);
             $json = array("status" => false, "message" => "invalid request");
+            $this->log->create($json["message"]);
             echo json_encode($json);
             die;
         }
@@ -60,13 +62,16 @@ class Upload
         if (is_array($tmp) && count($tmp) > 0) {
             http_response_code(400);
             $json = array("status" => false, "message" => "multiple upload not permitted");
+            $this->log->create($json["message"]);
             echo json_encode($json);
             die;
         }
+
         $fileSize = $_FILES[$value]["size"] / 1024;
         if ($fileSize > $this->_max_size) {
             http_response_code(400);
             $json = array("status" => false, "message" => "file is too large");
+            $this->log->create($json["message"]);
             echo json_encode($json);
             die;
         }
@@ -74,6 +79,7 @@ class Upload
         if (!$ext || !in_array($ext, $this->_allow_img)) {
             http_response_code(400);
             $json = array("status" => false, "message" => "file extension not support");
+            $this->log->create($json["message"]);
             echo json_encode($json);
             die;
         }
@@ -90,6 +96,7 @@ class Upload
         } else {
             http_response_code(500);
             $json = array("status" => false, "message" => $this->uploadMsg($_FILES[$value]["error"]));
+            $this->log->create($json["message"]);
         }
 
         echo json_encode($json);

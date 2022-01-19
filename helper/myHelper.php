@@ -21,12 +21,16 @@ function validIp(string $ip)
 
 function forbidden()
 {
+    $log = new Log();
+    $log->create("access forbidden");
     require BASEPATH . "/views/403.php";
     die;
 }
 
 function notFound()
 {
+    $log = new Log();
+    $log->create("access forbidden");
     require BASEPATH . "/views/404.php";
     die;
 }

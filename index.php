@@ -3,6 +3,7 @@ define("BASEPATH", __DIR__);
 require_once BASEPATH . "/helper/myHelper.php";
 require_once BASEPATH . "/vendor/autoload.php";
 require_once BASEPATH . "/library/upload.php";
+require_once BASEPATH . "/library/log.php";
 
 $upload = new Upload();
 $url = $_SERVER["REQUEST_URI"];
