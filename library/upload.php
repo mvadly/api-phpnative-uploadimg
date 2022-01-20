@@ -70,7 +70,7 @@ class Upload
         $fileSize = $_FILES[$value]["size"] / 1024;
         if ($fileSize > $this->_max_size) {
             http_response_code(400);
-            $json = array("status" => false, "message" => "file is too large");
+            $json = array("status" => false, "message" => "file is too large, maximum file is 500kb");
             $this->log->create($json["message"]);
             echo json_encode($json);
             die;
